@@ -4,7 +4,7 @@ import string
 import os.path
 
 #write your filepath here (including what you want to call your txt file.)
-filepath = r"/Users/thelevic/Desktop/pw.txt"
+filepath = r"Your path goes here"
 specialChars = "!@#$%^&*";
 alphabet = specialChars + string.ascii_letters + string.digits;
 
