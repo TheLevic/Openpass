@@ -8,12 +8,12 @@ import os.path
 
 #Checking to see if the file exists, or if we need to create a local password file
 def checkFile():
-    if os.path.exists(r"C:\Users\Levi\passwords.txt"):
+    if os.path.exists(r"C:\Users\Levi\Desktop\Pw\pw.txt"):
         print("File exists")
         return;
     else:
-        file = open(r"C:\Users\Levi\passwords.txt",'w');
-        print("Making file")
+        file = open(r"C:\Users\Levi\Desktop\Pw\pw.txt",'w');
+        print("Creating file")
         file.close();
 
 #Generating a secure password that the user likes
@@ -35,7 +35,7 @@ def generateSecurePassword(length):
 #Getting the information for the website we are adding
 def addInfo():
     #Info stage
-
+    checkFile();
     webname = input("Enter website name: ");
     username = input("Enter your username:");
     pwlen = input("Generating secure password. Input length: ");
@@ -45,7 +45,7 @@ def addInfo():
     #Writing stage
 
     print("Writing info to file");
-    file = open(r"C:\Users\Levi\passwords.txt", "a");
+    file = open(r"C:\Users\Levi\Desktop\Pw\pw.txt", "a");
     uname = "Username: " + username + "\n";
     pwd = "Password: " + password + "\n";
     website = "Website: " + webname + "\n";
@@ -59,3 +59,4 @@ def addInfo():
 
 #Going to add encryption and searching soon.
     
+addInfo();
