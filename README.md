@@ -8,6 +8,8 @@
 
 ### 3. python main.py
 
+---
+
 The end goal of this project is to be able to:
 
 - Generate secure passwords
