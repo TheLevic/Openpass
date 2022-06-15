@@ -12,6 +12,7 @@ def createDB():
         connection = sqlite3.connect(filepath);
         cursor = connection.cursor();
         cursor.execute("CREATE TABLE userinfo (website TEXT, username TEXT, password TEXT)");
+        connection.close();
 
 def addToDB(website, username, password):
     connection = sqlite3.connect(filepath);
