@@ -2,9 +2,11 @@
 import secrets
 import string
 import os.path
+import userdb
+
 
 #write your filepath here (including what you want to call your txt file.)
-filepath = r"Your path goes here"
+filepath = r"/Users/thelevic/Desktop/password.txt"
 specialChars = "!@#$%^&*";
 alphabet = specialChars + string.ascii_letters + string.digits;
 
