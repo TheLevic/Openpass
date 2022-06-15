@@ -1,6 +1,6 @@
 import string
-import db
-import pw
+import lib.db as db
+import lib.pw as pw
 
 specialChars = "!@#$%^&*";
 alphabet = specialChars + string.ascii_letters + string.digits;
