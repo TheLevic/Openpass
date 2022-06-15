@@ -1,5 +1,5 @@
 import string
-import userdb
+import db
 import pw
 
 specialChars = "!@#$%^&*";
@@ -7,7 +7,7 @@ alphabet = specialChars + string.ascii_letters + string.digits;
 
 def addAccount():
     #Checking/Creating user database
-    userdb.createDB();
+    db.createDB();
 
     # Getting the user's info
     webname = input("Enter website/ name: ");
@@ -20,12 +20,7 @@ def addAccount():
         except:
             pwlen = input("Invalid input. Please enter a number: ");
     password = pw.generateSecurePassword(pwlen);
-    userdb.addToDB(webname,username,password);
-
-def getUserInfo(websiteName):
-    userdb.betterGetInfo(websiteName);
-    
-
+    db.addToDB(webname,username,password);
 
 
 #Getting the information for the website we are adding
@@ -36,8 +31,7 @@ def main():
         print("Please select one of the following options:\n");
         print("1. Create/Add account");
         print("2. Get information");
-        print("3. Update/Edit account");
-        print("4. Delete account");
+        print("3. Delete account");
 
         choice = input()
         #Need to add error checking
@@ -47,9 +41,10 @@ def main():
             addAccount();
         elif (choice == 2):
             webName = input("Please input the website name: ");
-            getUserInfo(webName);
+            db.getInfo(webName);
         elif (choice == 3):
-            pass
+            webName = input("Please enter website name you would like to delete: ")
+            db.deleteInfo(webName);
         else:
             pass
 main();

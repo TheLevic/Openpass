@@ -2,7 +2,7 @@ import sqlite3
 import os
 
 filename = "pwmanager";
-filepath = r"C:\Users\Levi\Desktop\Coding_and_Cybersec\Code\password-generator\\" + filename;
+filepath = r"/Users/thelevic/code/personal/password-generator/" + filename;
 
 # Creating the sqlite database
 def createDB():
@@ -22,21 +22,13 @@ def addToDB(website, username, password):
     connection.commit();
     connection.close();
 
-def getInfo():
-    connection = sqlite3.connect(filepath);
-    cursor = connection.cursor();
-    rows = cursor.execute("SELECT website, username, password FROM userinfo").fetchall();
-    print(rows);
-
 #Getting information based on the website name
-def betterGetInfo(websiteName):
+def getInfo(websiteName):
     try:
         connection = sqlite3.connect(filepath);
-        print("Connected!")
         cursor = connection.cursor();
-        select_query = """select * from userinfo where website = ?""";
-        cursor.execute(select_query,(websiteName,));
-        print("executed")
+        selectQuery = """select * from userinfo where website = ?""";
+        cursor.execute(selectQuery,(websiteName,));
         record = cursor.fetchone();
         print("Website: ", record[0]);
         print("Username: ", record[1]);
@@ -45,3 +37,16 @@ def betterGetInfo(websiteName):
         connection.close();
     except:
         print("Failed to get information. Please try again.")
+
+def deleteInfo(websiteName):
+    connection = sqlite3.connect(filepath);
+    cursor = connection.cursor();
+    try:
+        deleteQuery = """delete from userinfo where website = ?""";
+        cursor.execute(deleteQuery,(websiteName,));
+        connection.commit();
+        print("Deleted information.")
+        cursor.close();
+        connection.close();
+    except:
+        print("Couldn't delete information.")
