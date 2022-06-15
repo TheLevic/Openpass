@@ -22,7 +22,8 @@ def addAccount():
     password = pw.generateSecurePassword(pwlen);
     userdb.addToDB(webname,username,password);
 
-
+def getUserInfo(websiteName):
+    userdb.betterGetInfo(websiteName);
     
 
 
@@ -45,7 +46,8 @@ def main():
         if (choice == 1):
             addAccount();
         elif (choice == 2):
-            pass;
+            webName = input("Please input the website name: ");
+            getUserInfo(webName);
         elif (choice == 3):
             pass
         else:
