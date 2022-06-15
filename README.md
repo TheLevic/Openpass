@@ -25,6 +25,8 @@ Please begin by opening up db.py in the lib folder. The only requirement is to a
 
 ![Example](images/example.png)
 
+---
+
 ### Reporting Errors
 
 Please report errors in the issues section of this github repository. This project is really just for fun.
