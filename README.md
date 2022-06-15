@@ -19,6 +19,12 @@ This is a simple python password generator. It will store your login information
 
 ---
 
+### How to set up
+
+Please begin by opening up db.py in the lib folder. The only requirement is to add your own filepath to the file as shown below. If you wish, you can also name your database as you please. See image below:
+
+![Example](images/example.png)
+
 ### Reporting Errors
 
 Please report errors in the issues section of this github repository. This project is really just for fun.
