@@ -1,8 +1,10 @@
 import sqlite3
 import os
 
+# Please put desired filepath below, as well as what you would like to name your database file.
+
 filename = "pwmanager";
-filepath = r"/Users/thelevic/code/personal/password-generator/" + filename;
+filepath = r"filepath goes here" + filename;
 
 # Creating the sqlite database
 def createDB():
