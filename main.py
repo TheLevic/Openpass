@@ -6,6 +6,7 @@ class Main():
         self.finished = False;
         self.choice = None;
 
+
     def addAccount(self):
         #Checking/Creating user database
         db.createDB();
@@ -22,11 +23,17 @@ class Main():
                 pwlen = input("Invalid input. Please enter a number: ");
         password = pw.generateSecurePassword(pwlen);
         db.addToDB(webname,username,password);
+
+
     def errorStatement(self):
         print("Sorry. Something went wrong. Please try again or reach out to the developer.");
+
+
     def viewInfo(self):
         webName = input("Please input the website name (ex: google.com): ");
         db.getInfo(webName);
+
+
     def deleteInfo(self):
         webName = input("Please enter website name you would like to delete (ex: google.com): ")
         db.deleteInfo(webName);
