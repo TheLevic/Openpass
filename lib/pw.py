@@ -18,6 +18,5 @@ def generateSecurePassword(length):
             likePW = True;
         else:
             pass;
-
-
+    
     
