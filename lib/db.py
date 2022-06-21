@@ -31,10 +31,9 @@ def getInfo(websiteName):
         cursor = connection.cursor();
         selectQuery = """select * from userinfo where website = ?""";
         cursor.execute(selectQuery,(websiteName,));
-        record = cursor.fetchone();
-        print("Website: ", record[0]);
-        print("Username: ", record[1]);
-        print("Password: ", record[2]);
+        record = cursor.fetchall();
+        for row in record:
+            print(row);
         cursor.close();
         connection.close();
     except:
