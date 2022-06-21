@@ -29,7 +29,8 @@ def createAccountMenu():
                     db.addToDB(webname,user,userPWD);
                     sg.popup_auto_close("Information has been added.");
                 except:
-                    sg.popup_auto_close("Please enter a valid integer.");
+                    sg.popup_auto_close("Error. Please enter a valid number.");
+                    break;
             except:
                 sg.popup_auto_close("Something went wrong. Please try again.");
                 break;
@@ -37,7 +38,7 @@ def createAccountMenu():
             break;
         elif event == ("Go Back"):
             break;
-        window.close();
+    window.close();
         
 
 def getUserInfoMenu():
