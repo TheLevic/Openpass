@@ -7,16 +7,6 @@ import pw as pw
 
 
 
-def addAccount(website, user):
-    #Checking/Creating user database
-    db.createDB();
-
-    # Getting the user's info
-    webname = website;
-    username = user;
-    # Needing to make sure that the user input is valid.
-    db.addToDB(webname,username,password);
-
 
 def errorStatement():
     print("Sorry. Something went wrong. Please try again or reach out to the developer.");
@@ -53,7 +43,7 @@ def run():
             try:
                 choice = input("Are you sure you want to add a new account? Y or N: ");
                 if (choice == 'Y' or choice == 'y'):
-                    addAccount();
+                    pass;
                 else:
                     print("Returning to home screen.")
                     pass;
@@ -83,4 +73,3 @@ def run():
                 errorStatement();
         elif (choice == 4):
             return;
-run();

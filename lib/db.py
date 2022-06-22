@@ -1,5 +1,7 @@
 import sqlite3
 import os
+import PySimpleGUI as sg
+
 
 # Please put desired filepath below, as well as what you would like to name your database file.
 
@@ -9,7 +11,7 @@ filepath = r"filepath goes here" + filename;
 # Creating the sqlite database
 def createDB():
     if os.path.exists(filepath):
-        print("Database exists. Continuing.");
+        pass;
     else:
         connection = sqlite3.connect(filepath);
         cursor = connection.cursor();
@@ -18,11 +20,19 @@ def createDB():
 
 # Adding information to database
 def addToDB(website, username, password):
-    connection = sqlite3.connect(filepath);
-    cursor = connection.cursor();
-    cursor.execute("insert into userinfo (website, username, password) values (?, ?, ?)",(website, username, password));
-    connection.commit();
-    connection.close();
+    createDB();
+    try:
+        connection = sqlite3.connect(filepath);
+        cursor = connection.cursor();
+        cursor.execute("insert into userinfo (website, username, password) values (?, ?, ?)",(website, username, password));
+        connection.commit();
+        connection.close();
+        return True;
+    except:
+        sg.popup_error("Couldn't connect to database.");
+        return False;
+        
+
 
 #Getting information based on the website name
 def getInfo(websiteName):
@@ -32,12 +42,12 @@ def getInfo(websiteName):
         selectQuery = """select * from userinfo where website = ?""";
         cursor.execute(selectQuery,(websiteName,));
         record = cursor.fetchall();
-        for row in record:
-            print(row);
         cursor.close();
         connection.close();
+        return record;
     except:
-        print("Failed to get information. Please try again.")
+        sg.popup_error("Couldn't retrieve the information. Please try again.")
+        return False;
 
 def deleteInfo(websiteName):
     connection = sqlite3.connect(filepath);
@@ -50,4 +60,4 @@ def deleteInfo(websiteName):
         cursor.close();
         connection.close();
     except:
-        print("Couldn't delete information.")
+        sg.popup_error("Couldn't delete the information. Please try again.")

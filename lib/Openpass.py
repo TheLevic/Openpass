@@ -5,6 +5,7 @@ import pw
 
 sg.theme("Dark Green 4");
 
+# Window to help the user create their account
 def createAccountMenu():
     layout = [[sg.Text("Enter the website:"), sg.Input(key="-WEBIN-")],
               [sg.Text("Enter your username:"), sg.Input(key="-USERIN-")],
@@ -21,15 +22,21 @@ def createAccountMenu():
                 pwd = values["-PWDIN-"];
                 try:
                     #Trying to convert the length given into an integer
-                    pwd = int(pwd);
-                    #Generating the users password.
-                    userPWD = pw.generateSecurePassword(pwd);
-                    #Need to see if they like it or not
-                    sg.popup("You generated password is: " + userPWD +"\nDo you like it?", button_type=1);
-                    db.addToDB(webname,user,userPWD);
-                    sg.popup_auto_close("Information has been added.");
+                    pwdLen = int(pwd);
+                    likePw = False;
+                    while likePw == False:
+                        #Generating the users password.
+                        userPWD = pw.generateSecurePassword(pwdLen);
+                        #Need to see if they like it or not
+                        if (sg.popup_yes_no("You generated password is: " + userPWD +"\n Do you like it?") == "Yes"):
+                            if(db.addToDB(webname,user,userPWD)):
+                                sg.popup_auto_close("Information has been added.");
+                                likePw = True;
+                            else:
+                                break;
+                    break;
                 except:
-                    sg.popup_auto_close("Error. Please enter a valid number.");
+                    sg.popup_auto_close("Error. Please try again. Make sure you enter a valid number. Ex: 12");
                     break;
             except:
                 sg.popup_auto_close("Something went wrong. Please try again.");
@@ -40,19 +47,52 @@ def createAccountMenu():
             break;
     window.close();
         
-
+# Window to help user get their information
 def getUserInfoMenu():
-    layout = [[sg.T("Please the website information you want to retrieve:"), sg.I(key="-WEBIN-")]];
-    window = sg.Window("View your Info", layout);
+    layout = [[sg.T("Please eneter the website information you want to retrieve:"), sg.I(key="-WEBIN-"), sg.Submit()], [sg.Button("Go Back")]];
+    window = sg.Window("View Your Info", layout);
+    
     event, values = window.read();
+    while True:
+        if event == "Submit":
+            # Getting user information from database.
+            userInfo = db.getInfo(values["-WEBIN-"]);
+            # Making sure that it is a list and no errors occured.
+            if (isinstance(userInfo, list)):
+                if (len(userInfo) == 0):
+                    sg.popup_error("Couldn't find information for this site. Please try again.");
+                else:
+                    displayData(userInfo);
+                    break;
+            else:
+                sg.popup_error("Something went wrong. Please try again.");
+                break;
+        elif event == "Go Back":
+            break;
+        elif event is None:
+            break;
     window.close();
 
+#Window to display all of the users information
+def displayData(userInfo):
+    headings = ["Website", "Username", "Password"];
+    data = userInfo;
+    layout = [[sg.Table(data,headings=headings,justification="left", key="-TABLE-")], [sg.Exit()]];
+    window = sg.Window("View Your Data", layout);
+    event, values = window.read();
+    while True:
+        if event == sg.WINDOW_CLOSED:
+            break;
+        elif event == "Exit":
+            break;
+    window.close();
+
+# Window to help user delete their account.
 def deleteUserAccountMenu():
     layout = [[sg.T("Please the website information you want to retrieve:"), sg.I(key="-WEBIN-")]];
     window = sg.Window("Delete Account", layout);
     event, values = window.read();
     window.close();
-
 
 
 def mainWindow():
