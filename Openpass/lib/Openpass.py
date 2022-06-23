@@ -61,6 +61,7 @@ def getUserInfoMenu():
             if (isinstance(userInfo, list)):
                 if (len(userInfo) == 0):
                     sg.popup_error("Couldn't find information for this site. Please try again.");
+                    break;
                 else:
                     displayData(userInfo);
                     break;
