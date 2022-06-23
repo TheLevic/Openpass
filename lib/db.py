@@ -1,8 +1,6 @@
-import json
 import sqlite3
 import os
 import PySimpleGUI as sg
-import json
 
 
 filepath = r"";
