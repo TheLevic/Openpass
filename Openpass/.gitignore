@@ -1,6 +1,3 @@
-
-filepath goes herepwmanager
-lib/__pycache__/db.cpython-310.pyc
-lib/__pycache__/pw.cpython-310.pyc
-lib/__pycache__/main.cpython-310.pyc
+venv
+lib\__pycache__
 filepath.txt
