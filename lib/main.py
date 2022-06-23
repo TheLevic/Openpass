@@ -2,12 +2,6 @@ import db as db
 import pw as pw
 
 
-
-
-
-
-
-
 def errorStatement():
     print("Sorry. Something went wrong. Please try again or reach out to the developer.");
 

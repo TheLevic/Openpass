@@ -1,5 +1,4 @@
 import PySimpleGUI as sg
-import main
 import db
 import pw
 
@@ -33,6 +32,7 @@ def createAccountMenu():
                                 sg.popup_auto_close("Information has been added.");
                                 likePw = True;
                             else:
+                                sg.PopupError("Couldn't add information. Please try again.")
                                 break;
                     break;
                 except:
