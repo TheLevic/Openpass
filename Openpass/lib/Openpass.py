@@ -9,7 +9,7 @@ def createAccountMenu():
     layout = [[sg.Text("Enter the website:"), sg.Input(key="-WEBIN-")],
               [sg.Text("Enter your username:"), sg.Input(key="-USERIN-")],
               [sg.Text("Enter preferred password length:"), sg.In(key="-PWDIN-")],
-              [sg.Submit()], [sg.Button("Go Back")]];
+              [sg.Submit(bind_return_key=True)], [sg.Button("Go Back")]];
     window = sg.Window("Create Account", layout);
     event, values = window.read();
     while True:
@@ -49,7 +49,7 @@ def createAccountMenu():
         
 # Window to help user get their information
 def getUserInfoMenu():
-    layout = [[sg.T("Please eneter the website information you want to retrieve:"), sg.I(key="-WEBIN-"), sg.Submit()], [sg.Button("Go Back")]];
+    layout = [[sg.T("Please eneter the website information you want to retrieve:"), sg.I(key="-WEBIN-"), sg.Submit(bind_return_key=True)], [sg.Button("Go Back")]];
     window = sg.Window("View Your Info", layout);
     
     event, values = window.read();
