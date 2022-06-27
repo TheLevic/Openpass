@@ -11,14 +11,14 @@ def createAccountMenu():
               [sg.Text("Enter preferred password length:"), sg.In(key="-PWDIN-")],
               [sg.Submit(bind_return_key=True)], [sg.Button("Go Back")]];
     window = sg.Window("Create Account", layout);
-    event, values = window.read();
+    event1, values1 = window.read();
     while True:
-        if event == "Submit":
+        if event1 == "Submit":
             try:
                 #Getting my users values from their inputs above based on the keys
-                webname = values["-WEBIN-"];
-                user = values["-USERIN-"];
-                pwd = values["-PWDIN-"];
+                webname = values1["-WEBIN-"];
+                user = values1["-USERIN-"];
+                pwd = values1["-PWDIN-"];
                 try:
                     #Trying to convert the length given into an integer
                     pwdLen = int(pwd);
@@ -41,9 +41,9 @@ def createAccountMenu():
             except:
                 sg.popup_auto_close("Something went wrong. Please try again.");
                 break;
-        elif event is None:
+        elif event1 is None:
             break;
-        elif event == ("Go Back"):
+        elif event1 == ("Go Back"):
             break;
     window.close();
         
@@ -52,11 +52,11 @@ def getUserInfoMenu():
     layout = [[sg.T("Please eneter the website information you want to retrieve:"), sg.I(key="-WEBIN-"), sg.Submit(bind_return_key=True)], [sg.Button("Go Back")]];
     window = sg.Window("View Your Info", layout);
     
-    event, values = window.read();
+    event2, values2 = window.read();
     while True:
-        if event == "Submit":
+        if event2 == "Submit":
             # Getting user information from database.
-            userInfo = db.getInfo(values["-WEBIN-"]);
+            userInfo = db.getInfo(values2["-WEBIN-"]);
             # Making sure that it is a list and no errors occured.
             if (isinstance(userInfo, list)):
                 if (len(userInfo) == 0):
@@ -68,9 +68,9 @@ def getUserInfoMenu():
             else:
                 sg.popup_error("Something went wrong. Please try again.");
                 break;
-        elif event == "Go Back":
+        elif event2 == "Go Back":
             break;
-        elif event is None:
+        elif event2 is None:
             break;
     window.close();
 
@@ -80,19 +80,28 @@ def displayData(userInfo):
     data = userInfo;
     layout = [[sg.Table(data,headings=headings,justification="left", key="-TABLE-")], [sg.Exit()]];
     window = sg.Window("View Your Data", layout);
-    event, values = window.read();
+    event3, values3 = window.read();
     while True:
-        if event == sg.WINDOW_CLOSED:
+        if event3 == sg.WINDOW_CLOSED:
             break;
-        elif event == "Exit":
+        elif event3 == "Exit":
             break;
     window.close();
 
 # Window to help user delete their account.
 def deleteUserAccountMenu():
-    layout = [[sg.T("Please the website information you want to retrieve:"), sg.I(key="-WEBIN-")]];
+    layout = [[sg.T("Please enter the website name for the site you want to delete: "), sg.I(key="-WIN-")],
+              [sg.T("Please enter the username for the site you want to delete: "),sg.I(key="-UIN-")],
+              [sg.Submit(), sg.Button("Go Back")]];
     window = sg.Window("Delete Account", layout);
-    event, values = window.read();
+    event4, values4 = window.read();
+    while True:
+        if event4 == "Submit" and len(values4["-WIN-"]) != 0 and len(values4["-UIN-"]):
+            db.deleteInfo(values4["-WIN-"], values4["-UIN-"]);
+        elif event4 is None:
+            break;
+        elif event4 == "Go Back":
+            break;
     window.close();
 
 

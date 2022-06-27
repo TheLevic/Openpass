@@ -73,15 +73,14 @@ def getInfo(websiteName):
     else:
         sg.PopupError("You had no database for information. Database has now been created. Please try again.");
 
-def deleteInfo(websiteName):
+def deleteInfo(websiteName, username):
     if (createDB()):
         try:
             connection = sqlite3.connect(filepath);
             cursor = connection.cursor();
-            deleteQuery = """delete from userinfo where website = ?""";
-            cursor.execute(deleteQuery,(websiteName,));
+            deleteQuery = """delete from userinfo where website = ? AND username = ?""";
+            cursor.execute(deleteQuery,(websiteName, username));
             connection.commit();
-            print("Deleted information.")
             cursor.close();
             connection.close();
         except:
