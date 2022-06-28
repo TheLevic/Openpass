@@ -96,8 +96,14 @@ def deleteUserAccountMenu():
     window = sg.Window("Delete Account", layout);
     event4, values4 = window.read();
     while True:
-        if event4 == "Submit" and len(values4["-WIN-"]) != 0 and len(values4["-UIN-"]):
-            db.deleteInfo(values4["-WIN-"], values4["-UIN-"]);
+        if event4 == "Submit":
+            try:
+                webname = values4["-WIN-"];
+                username = values4["-UIN-"];
+                db.deleteInfo(webname, username);
+            except:
+                sg.PopupError("Please try again.");
+                break;
         elif event4 is None:
             break;
         elif event4 == "Go Back":
