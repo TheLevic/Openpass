@@ -1,4 +1,5 @@
 # Password-Generator
+## DISCLAIMER: This is not entirely working. I need to fix some of the PySimpleGUI logic. However, the base logic of the program is working and good. If you would like to use a stable version, please clone a different branch. The downside is it will be a CLI verison of te program.
 
 ---
 
