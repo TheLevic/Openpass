@@ -93,14 +93,15 @@ def deleteUserAccountMenu():
     layout = [[sg.T("Please enter the website name for the site you want to delete: "), sg.I(key="-WIN-")],
               [sg.T("Please enter the username for the site you want to delete: "),sg.I(key="-UIN-")],
               [sg.Submit(), sg.Button("Go Back")]];
-    window = sg.Window("Delete Account", layout);
-    event4, values4 = window.read();
+    deleteUserWindow = sg.Window("Delete Account", layout, modal = True);
+    event4, values4 = deleteUserWindow.read();
     while True:
         if event4 == "Submit":
             try:
                 webname = values4["-WIN-"];
                 username = values4["-UIN-"];
                 db.deleteInfo(webname, username);
+                break;
             except:
                 sg.PopupError("Please try again.");
                 break;
@@ -108,7 +109,7 @@ def deleteUserAccountMenu():
             break;
         elif event4 == "Go Back":
             break;
-    window.close();
+    deleteUserWindow.close();
 
 
 def mainWindow():
