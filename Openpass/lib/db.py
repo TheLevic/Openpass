@@ -8,34 +8,30 @@ filepath = r"";
 # Creating the sqlite database
 def createDB():
     global filepath;
-
+    try:
+        file = open ("filepath.txt", "r");
+        filepath = file.readline();
+        if os.path.exists(filepath):
+            return True;
+    except:
+        sg.PopupError("Something went wrong. Please try again.")
 
     try:
-        with open ("filepath.txt", "r") as f:
-            filepath = f.readline();
-    except:
-        pass;
-
-
-    if os.path.exists(filepath):
+        sg.Popup("You have not created a database. Creating now.")
+        path = sg.PopupGetFolder("Please enter the desired filepath for your database: ")
+        filename = "/" + sg.PopupGetText("Please enter desired database name");
+        filepath = path + filename;
+        connection = sqlite3.connect(filepath);
+        cursor = connection.cursor();
+        cursor.execute("CREATE TABLE userinfo (website TEXT, username TEXT, password TEXT)");
+        connection.close();
+        with open("filepath.txt", "w") as f:
+            f.write(filepath);
+            f.close();
         return True;
-    else:
-        try:
-            sg.Popup("You have not created a database. Creating now.")
-            path = sg.PopupGetFolder("Please enter the desired filepath for your database: ")
-            filename = "/" + sg.PopupGetText("Please enter desired database name");
-            filepath = path + filename;
-            connection = sqlite3.connect(filepath);
-            cursor = connection.cursor();
-            cursor.execute("CREATE TABLE userinfo (website TEXT, username TEXT, password TEXT)");
-            connection.close();
-            with open("filepath.txt", "w") as f:
-                f.write(filepath);
-                f.close();
-            return True;
-        except:
-            sg.PopupError("Error creating database.")
-            return False;
+    except:
+        sg.PopupError("Error creating database.")
+        return False;
 
 # Adding information to database
 def addToDB(website, username, password):
@@ -84,6 +80,9 @@ def deleteInfo(websiteName, username):
             cursor.close();
             connection.close();
         except:
-            sg.popup_error("Couldn't delete the information. Please try again.")
+            sg.popup_error("Something went wrong. Please try again.")
     else:
         sg.PopupError("You had no database for information. Database has now been created. Please try again.")
+
+
+    
